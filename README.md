@@ -1,21 +1,21 @@
 # Gas Auction Platform
 
-> [Русская версия](README.ru.md)
+> 🇬🇧 English | [🇷🇺 Русский](README.ru.md)
 
 A web-based B2B auction platform for gas trading. Companies register, get approved by an administrator, participate in live auctions, and submit price offers. The highest bid wins.
 
 ## Features
 
-- **Public auction listing** — browse open auctions with current prices and deadlines
-- **Company registration** — register with company name, legal form, and contact details; account is activated after admin approval
-- **Bidding** — authenticated users submit price offers; each bid must exceed the current price by at least the configured step percentage
-- **User dashboard** — view submitted bids and their outcomes; edit profile
-- **Admin panel**
+- Public auction listing — browse open auctions with current prices and deadlines
+- Company registration — register with company name, legal form, and contact details; account is activated after admin approval
+- Bidding — authenticated users submit price offers; each bid must exceed the current price by at least the configured step percentage
+- User dashboard — view submitted bids and their outcomes; edit profile
+- Admin panel
   - Create, edit, and manage auctions (set status, start price, end time, price step)
   - Manually close any auction; winner is assigned automatically based on highest bid
   - Review all bids and download contract details for winners
   - Approve or block user accounts
-- **Automatic auction closing** — a scheduled task closes expired open auctions every minute and assigns win/lose statuses
+- Automatic auction closing — a scheduled task closes expired open auctions every minute and assigns win/lose statuses
 
 ## Tech Stack
 
@@ -63,12 +63,35 @@ npm run build
 php artisan serve
 ```
 
+The application will be available at `http://127.0.0.1:8000/`.
+
 Default seed credentials:
 
 | Role  | Email             | Password |
 |-------|-------------------|----------|
 | Admin | admin@example.com | password |
 | User  | user@example.com  | password |
+
+## Environment Variables
+
+For production deployments, set these environment variables instead of using defaults:
+
+| Variable        | Description                              | Default              |
+|-----------------|------------------------------------------|----------------------|
+| `APP_KEY`       | Application encryption key               | _(generated)_        |
+| `APP_ENV`       | Environment (`local`/`production`)       | `local`              |
+| `APP_DEBUG`     | Enable debug mode (`true`/`false`)       | `true`               |
+| `APP_URL`       | Application base URL                     | `http://localhost`   |
+| `DB_CONNECTION` | Database driver                          | `mysql`              |
+| `DB_DATABASE`   | Database name                            | —                    |
+| `DB_USERNAME`   | Database username                        | —                    |
+| `DB_PASSWORD`   | Database password                        | —                    |
+
+To enable automatic auction closing in production, add a cron job:
+
+```
+* * * * * cd /path-to-project && php artisan schedule:run >> /dev/null 2>&1
+```
 
 ## Running Tests
 
@@ -77,14 +100,6 @@ php artisan test
 ```
 
 Tests use an in-memory SQLite database and do not affect your development data.
-
-## Scheduled Tasks
-
-The platform automatically closes expired auctions every minute. To enable this, configure a cron job on your server:
-
-```
-* * * * * cd /path-to-project && php artisan schedule:run >> /dev/null 2>&1
-```
 
 ## Project Structure
 
@@ -114,4 +129,4 @@ tests/
 
 ## License
 
-MIT
+[MIT](LICENSE)
